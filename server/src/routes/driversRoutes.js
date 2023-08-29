@@ -69,11 +69,10 @@ driversRoutes.post("/",async (req, res)=>{
                 forename,
                 surname,
                 description,
-                image,
                 nationality,
                 birthDate,
             }
-            /* image ? driver.image = image: null; */
+            image ? driver.image = image: null;
             const response = await Driver.create(driver);
 
             const lastDriver = await Driver.findOne({ order: [['createdAt', 'DESC']] });

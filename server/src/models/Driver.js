@@ -21,6 +21,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
+      defaultValue: "https://wallpapercave.com/wp/wp8757558.png",
     },
     nationality: {
       type: DataTypes.STRING,
