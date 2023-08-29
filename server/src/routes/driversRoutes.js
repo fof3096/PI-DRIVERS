@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { Router } = require("express");
 const driversRoutes = Router();
-const { Driver } = require('../db')
+const { Driver, Driver_Team } = require('../db')
 
 // GET DRIVER
 driversRoutes.get("/",async (req, res, next)=>{
@@ -62,23 +62,41 @@ driversRoutes.get("/:id",async (req, res)=>{
 
 // POST DRIVER
 driversRoutes.post("/",async (req, res)=>{
-    const { forename, surname, description, image, nationality, birthDate } = req.body;
-    if ( forename && surname && description && nationality && birthDate) {
+    const { forename, surname, description, image, nationality, birthDate, teams } = req.body;
+    if ( forename && surname && description && nationality && birthDate && teams ) {
         try {
             const driver = {
                 forename,
                 surname,
                 description,
+                image,
                 nationality,
                 birthDate,
             }
-            image ? driver.image = image: null;
-
+            /* image ? driver.image = image: null; */
             const response = await Driver.create(driver);
 
-            res.json(response)
+            const lastDriver = await Driver.findOne({ order: [['createdAt', 'DESC']] });
+
+            teams.map(async (team) => {
+                try {
+                    await Driver_Team.create({ DriverId: lastDriver.id, TeamId: team })
+                } catch (error) {
+                    res.status(400).json({error: "Error en la creacion del nuevo Driver"})
+                }
+            });
+
+            res.json({
+                id:response.id,
+                forename: response.forename,
+                surname: response.surname,
+                description: response.description,
+                image: response.image,
+                nationality: response.nationality,
+                birthDate: response.birthDate,
+            })
         } catch (error) {
-            res.status(400).json({error: error.message})
+            res.status(400).json({error: "Error en la creacion del nuevo Driver"})
         }
     }
 })

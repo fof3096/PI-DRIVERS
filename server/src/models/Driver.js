@@ -29,7 +29,6 @@ module.exports = (sequelize) => {
     birthDate: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-    }},{
-      timestamps: false
-    });
+    }
+  });
 };
