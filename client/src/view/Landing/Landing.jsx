@@ -1,8 +1,11 @@
-function Landing(params) {
+import style from './Landing.module.css'
+import { Link } from 'react-router-dom'
+
+function Landing() {
     
     return (
-        <div>
-            <h1>Landing Page</h1>
+        <div className={style.container}>
+            <Link className={style.buttom} to="/home">Home</Link>
         </div>
     )
 }

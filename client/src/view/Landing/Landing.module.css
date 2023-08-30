@@ -1,0 +1,17 @@
+.container{
+    /* background-color: rebeccapurple; */
+    width: 150px;
+    margin-top: 25%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttom{ /* inline */
+    display: block;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px 0px;
+    border-radius: 15px;
+}
