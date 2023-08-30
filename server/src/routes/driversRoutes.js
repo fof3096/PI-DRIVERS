@@ -1,9 +1,9 @@
 const axios = require("axios");
 const { Router } = require("express");
 const driversRoutes = Router();
-const { Driver, Driver_Team } = require('../db')
+const { Driver, Driver_Team, Team } = require('../db')
 
-// GET DRIVER
+// GET 15 DRIVERS
 driversRoutes.get("/",async (req, res, next)=>{
     const { name } = req.query;
     if(name){
@@ -32,8 +32,27 @@ driversRoutes.get("/",async (req, res, next)=>{
 driversRoutes.get("/",async (req, res)=>{
     try {
         const response = await axios.get("http://localhost:5000/drivers");
-        const { data } = response;
-        res.json(data)
+        const newDrivers = await Driver.findAll();
+        const drivers = response.data.map((driver)=>{
+            
+            let teamsArray = [];
+            if (driver.teams) {
+                let teams =  driver.teams.split(",");
+                teamsArray = teams.map(team => team.trim());
+            }
+            return {
+                id:driver.id,
+                forename:driver.name?.forename,
+                surname:driver.name?.surname,
+                description:driver.description,
+                image:driver.image?.url,
+                nationality:driver.nationality,
+                teams:teamsArray,
+                birthDate:driver.dob,
+            }
+        })
+
+        res.json([...newDrivers, ...drivers]);
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -42,21 +61,51 @@ driversRoutes.get("/",async (req, res)=>{
 // GET DRIVER by ID
 driversRoutes.get("/:id",async (req, res)=>{
     const { id } = req.params;
-    try {
-        const response = await axios.get(`http://localhost:5000/drivers/${id}`);
-        const { data } = response;
-        const driver = {
-            id:data.id,
-            forename:data.name?.forename,
-            surname:data.name?.surname,
-            description:data.description,
-            image:data.image?.url,
-            nationality:data.nationality,
-            birthDate:data.dob,
+    if (id.length > 5) {
+        try {
+            const driverDB = await Driver.findOne({where : {id: id}});
+            /* const teamsDB = await Driver_Team.findAll({where : {TeamId: id}});
+            const teamsArray = await Promise.all(
+                teamsDB.map(teamDB => {
+                return Team.findOne({where : {id:teamDB.TeamId}})
+                })
+            ) */
+            const getDriver = {
+                id: driverDB.id,
+                forename: driverDB.forename,
+                surname: driverDB.surname,
+                description: driverDB.description,
+                image: driverDB.image,
+                nationality: driverDB.nationality,
+                birthDate: driverDB.birthDate,
+            }
+            res.json(getDriver);
+        } catch (error) {
+            res.status(400).json({error: error.message})
         }
-        res.json(driver);
-    } catch (error) {
-        res.status(400).json({error: error.message})
+    }else{
+        try {
+            const response = await axios.get(`http://localhost:5000/drivers/${id}`);
+            const { data } = response;
+            let teamsArray = [];
+                if (data.teams) {
+                    let teams =  data.teams.split(",");
+                    teamsArray = teams.map(team => team.trim());
+                }
+            const driver = {
+                id:data.id,
+                forename:data.name?.forename,
+                surname:data.name?.surname,
+                description:data.description,
+                image:data.image?.url,
+                nationality:data.nationality,
+                teams:teamsArray,
+                birthDate:data.dob,
+            }
+            res.json(driver);
+        } catch (error) {
+            res.status(400).json({error: "No se encontro al corredor"})
+        }
     }
 })
 
@@ -76,7 +125,15 @@ driversRoutes.post("/",async (req, res)=>{
             const response = await Driver.findOrCreate({where: driver});
             
             if (response[1] === false) {
-                throw new Error("Este Conductor ya ha sido creado");
+                res.json({
+                    id:response[0].id,
+                    forename: response[0].forename,
+                    surname: response[0].surname,
+                    description: response[0].description,
+                    image: response[0].image,
+                    nationality: response[0].nationality,
+                    birthDate: response[0].birthDate,
+                }) 
             }else if(response[1] === true){
                 const lastDriver = await Driver.findOne({ order: [['createdAt', 'DESC']] });
 

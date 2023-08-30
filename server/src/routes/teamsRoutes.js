@@ -10,17 +10,17 @@ teamsRoutes.get("/",async (req,res)=>{
         const { data } = response;
         const noRepeat = new Set();
 
-        await data.forEach(async (driver) =>{
+        data.forEach((driver) =>{
             if (driver.teams) {
                 let teams = driver.teams.split(",");
-                await teams.forEach(team => noRepeat.add(team.trim()))
+                teams.forEach(team => noRepeat.add(team.trim()))
             }            
         })
-        const toCreate = Array.from(noRepeat).map(team => {
-            return {name: team}
-        })
-        await Team.bulkCreate(toCreate);
-        band = true;
+        await Promise.all(
+            Array.from(noRepeat).map(async (team) => {
+                await Team.findOrCreate({where : {name: team}})
+            })
+        )
         res.json(Array.from(noRepeat));
     } catch (error) {
         res.status(400).json({error: error.message});
