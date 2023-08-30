@@ -73,29 +73,34 @@ driversRoutes.post("/",async (req, res)=>{
                 birthDate,
             }
             image ? driver.image = image: null;
-            const response = await Driver.create(driver);
+            const response = await Driver.findOrCreate({where: driver});
+            
+            if (response[1] === false) {
+                throw new Error("Este Conductor ya ha sido creado");
+            }else if(response[1] === true){
+                const lastDriver = await Driver.findOne({ order: [['createdAt', 'DESC']] });
 
-            const lastDriver = await Driver.findOne({ order: [['createdAt', 'DESC']] });
+                teams.map(async (team) => {
+                    try {
+                        await Driver_Team.create({ DriverId: lastDriver.id, TeamId: team })
+                    } catch (error) {
+                        throw new Error("Error en la creacion del Conductor");
+                    }
+                });
 
-            teams.map(async (team) => {
-                try {
-                    await Driver_Team.create({ DriverId: lastDriver.id, TeamId: team })
-                } catch (error) {
-                    res.status(400).json({error: "Error en la creacion del nuevo Driver"})
-                }
-            });
-
-            res.json({
-                id:response.id,
-                forename: response.forename,
-                surname: response.surname,
-                description: response.description,
-                image: response.image,
-                nationality: response.nationality,
-                birthDate: response.birthDate,
-            })
+                res.json({
+                    id:response[0].id,
+                    forename: response[0].forename,
+                    surname: response[0].surname,
+                    description: response[0].description,
+                    image: response[0].image,
+                    nationality: response[0].nationality,
+                    birthDate: response[0].birthDate,
+                })  
+            }
+            
         } catch (error) {
-            res.status(400).json({error: "Error en la creacion del nuevo Driver"})
+            res.status(400).json({error: error.message});
         }
     }
 })
