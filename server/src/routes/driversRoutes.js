@@ -1,27 +1,93 @@
 const axios = require("axios");
+const { Op } = require("sequelize");
 const { Router } = require("express");
 const driversRoutes = Router();
 const { Driver, Driver_Team, Team } = require('../db')
 
 // GET 15 DRIVERS
 driversRoutes.get("/",async (req, res, next)=>{
-    const { name } = req.query;
+    let { name } = req.query;
+
+    function orderChar(string) { // FUNCIONA
+        let perfect = string.toUpperCase().charAt(0);
+        perfect = perfect + string.toLowerCase().slice(1);
+        return perfect;
+    }
+
     if(name){
+        name = orderChar(name);
+
         try {
-            const response = await axios.get(`http://localhost:5000/drivers?name.forename=${name}`);
-            const { data } = response;
-            const driver = {
-                id:data[0].id,
-                forename:data[0].name?.forename,
-                surname:data[0].name?.surname,
-                description:data[0].description,
-                image:data[0].image?.url,
-                nationality:data[0].nationality,
-                birthDate:data[0].dob,
-            }
-            res.json(driver);
+            /*     DB     */
+            const allDriversDB = await Driver.findAll({
+                where: {
+                    [Op.or]: [
+                        {
+                            forename:{
+                                [Op.startsWith]: name
+                            }
+                        },
+                        {
+                            surname:{
+                                [Op.startsWith]: name
+                            }
+                        }
+                    ]
+                }
+            });
+
+            const driversDB = await Promise.all(
+                allDriversDB.map(async (driver)=>{
+                    const teamsDB = await Driver_Team.findAll({where: {DriverId: driver.id}});
+                    
+                    const teamsArray = await Promise.all(
+                        teamsDB.map(async (teamDB) => {
+                            const team = await Team.findOne({where : {id:teamDB.TeamId}});
+                            return team.name;
+                        })
+                    )
+
+                    return {
+                        id: driver.id,
+                        forename: driver.forename,
+                        surname: driver.surname,
+                        description: driver.description,
+                        image: driver.image,
+                        nationality: driver.nationality,
+                        teams: teamsArray,
+                        birthDate: driver.birthDate,
+                    }
+                })
+            )
+            /*     API     */
+            const response = await axios.get("http://localhost:5000/drivers");
+            let driversAPI = [];
+            response.data.map((driver)=>{
+                if (driver.name?.forename.startsWith(name) || driver.name?.surname.startsWith(name)) {
+                    let teamsArray = [];
+                    if (driver.teams) {
+                        let teams =  driver.teams.split(",");
+                        teamsArray = teams.map(team => team.trim());
+                    }
+                    driversAPI.push({
+                        id:driver.id,
+                        forename:driver.name?.forename,
+                        surname:driver.name?.surname,
+                        description:driver.description,
+                        image:driver.image?.url,
+                        nationality:driver.nationality,
+                        teams:teamsArray,
+                        birthDate:driver.dob,
+                    })
+                }
+            })
+            
+            let flag = 15 - driversDB.length; // serian la cantidad que falta para llegar a 15
+
+            driversAPI.splice(flag);
+            res.json([...driversDB, ...driversAPI]);
         } catch (error) {
-            res.status(400).json({error: "No se encontro a dicho corredor"});
+            res.status(400).json({error: "No se encontraron dichos corredores"});
         }
     }else{
         next();
@@ -71,7 +137,8 @@ driversRoutes.get("/",async (req, res)=>{
                 teams: teamsArray,
                 birthDate: driver.birthDate,
             }
-            }))
+            })
+        )
         
         res.json([...newDrivers, ...drivers]);
     } catch (error) {
@@ -133,6 +200,7 @@ driversRoutes.get("/:id",async (req, res)=>{
 })
 
 // POST DRIVER
+//! TRANSFORMAR LOS FORENAME Y SURNAME PARA QUE COMIENCEN CON MAYUSCULA
 driversRoutes.post("/",async (req, res)=>{
     const { forename, surname, description, image, nationality, birthDate, teams } = req.body;
     if ( forename && surname && description && nationality && birthDate && teams ) {
