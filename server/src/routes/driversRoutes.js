@@ -200,7 +200,7 @@ driversRoutes.get("/:id",async (req, res)=>{
 })
 
 // POST DRIVER
-//! TRANSFORMAR LOS FORENAME Y SURNAME PARA QUE COMIENCEN CON MAYUSCULA
+//TODO: Transformar el FORENAME y SURNAME  para que comiencen con MAYUSCULAS o usar validaciones por FORM
 driversRoutes.post("/",async (req, res)=>{
     const { forename, surname, description, image, nationality, birthDate, teams } = req.body;
     if ( forename && surname && description && nationality && birthDate && teams ) {
@@ -246,7 +246,6 @@ driversRoutes.post("/",async (req, res)=>{
                     birthDate: response[0].birthDate,
                 })  
             }
-            
         } catch (error) {
             res.status(400).json({error: error.message});
         }
