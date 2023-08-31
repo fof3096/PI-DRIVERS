@@ -1,9 +1,6 @@
 // LIBRERIAS
 const axios = require("axios");
 
-// MODELOS
-/* const { Team } = require('../db'); */
-
 // CONTROLLERS
 const { createTeam } = require("../controllers/teamsControllers");
 
@@ -23,13 +20,9 @@ const getAllTeams = async (req,res)=>{
                 teams.forEach(team => noRepeat.add(team.trim()))
             }            
         })
-
+        // Busca el "team" en la DB y sí no encuentra lo crea
         createTeam(noRepeat);
-        /* await Promise.all(
-            Array.from(noRepeat).map(async (team) => {
-                await Team.findOrCreate({where : {name: team}})
-            })
-        ) */
+
         res.json(Array.from(noRepeat));
     } catch (error) {
         res.status(400).json({error: error.message});
