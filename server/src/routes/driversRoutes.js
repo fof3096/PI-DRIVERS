@@ -31,10 +31,9 @@ driversRoutes.get("/",async (req, res, next)=>{
 // GET ALLDRIVERS
 driversRoutes.get("/",async (req, res)=>{
     try {
+        //! Trae los DRIVERS de la API
         const response = await axios.get("http://localhost:5000/drivers");
-        const newDrivers = await Driver.findAll();
         const drivers = response.data.map((driver)=>{
-            
             let teamsArray = [];
             if (driver.teams) {
                 let teams =  driver.teams.split(",");
@@ -51,7 +50,29 @@ driversRoutes.get("/",async (req, res)=>{
                 birthDate:driver.dob,
             }
         })
-
+        //! Trae los DRIVERS de la DB
+        const driverDB = await Driver.findAll();
+        const newDrivers = await Promise.all(
+            driverDB.map(async (driver)=>{
+                const teamsDB = await Driver_Team.findAll({where: {DriverId: driver.id}});
+                const teamsArray = await Promise.all(
+                    teamsDB.map(async (teamDB) => {
+                    const team = await Team.findOne({where : {id:teamDB.TeamId}});
+                    return team.name;
+                    })
+                )
+            return {
+                id: driver.id,
+                forename: driver.forename,
+                surname: driver.surname,
+                description: driver.description,
+                image: driver.image,
+                nationality: driver.nationality,
+                teams: teamsArray,
+                birthDate: driver.birthDate,
+            }
+            }))
+        
         res.json([...newDrivers, ...drivers]);
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -63,13 +84,14 @@ driversRoutes.get("/:id",async (req, res)=>{
     const { id } = req.params;
     if (id.length > 5) {
         try {
-            const driverDB = await Driver.findOne({where : {id: id}});
-            /* const teamsDB = await Driver_Team.findAll({where : {TeamId: id}});
+            const driverDB = await Driver.findOne({where: {id: id}});
+            const teamsDB = await Driver_Team.findAll({where: {DriverId: id}});
             const teamsArray = await Promise.all(
-                teamsDB.map(teamDB => {
-                return Team.findOne({where : {id:teamDB.TeamId}})
+                teamsDB.map(async (teamDB) => {
+                const team = await Team.findOne({where : {id:teamDB.TeamId}});
+                return team.name;
                 })
-            ) */
+            )
             const getDriver = {
                 id: driverDB.id,
                 forename: driverDB.forename,
@@ -77,6 +99,7 @@ driversRoutes.get("/:id",async (req, res)=>{
                 description: driverDB.description,
                 image: driverDB.image,
                 nationality: driverDB.nationality,
+                teams: teamsArray,
                 birthDate: driverDB.birthDate,
             }
             res.json(getDriver);
