@@ -1,36 +1,27 @@
+// LIBRERIAS
 const axios = require("axios");
-const { Op } = require("sequelize");
-const { Driver, Driver_Team, Team } = require('../db')
+/* const { Op } = require("sequelize"); */
+
+// MODELOS
+const { Driver, Driver_Team, Team } = require('../db');
+
+// UTILS
+const { prepareString } = require("../utils/utils");
+
+// CONTROLLERS
+const { searchDriver } = require("../controllers/driversControllers");
 
 const getByQueryDrivers = async (req, res, next) => {
+    // QUERY
     let { name } = req.query;
 
-    function orderChar(string) { // FUNCIONA
-        let perfect = string.toUpperCase().charAt(0);
-        perfect = perfect + string.toLowerCase().slice(1);
-        return perfect;
-    }
-
     if(name){
-        name = orderChar(name);
+        name = prepareString(name);
+
         try {
             /*     DB     */
-            const allDriversDB = await Driver.findAll({
-                where: {
-                    [Op.or]: [
-                        {
-                            forename:{
-                                [Op.startsWith]: name
-                            }
-                        },
-                        {
-                            surname:{
-                                [Op.startsWith]: name
-                            }
-                        }
-                    ]
-                }
-            });
+            // Trae todos los DRIVERS que coincidan con el "name"
+            const allDriversDB = await searchDriver(name);
 
             const driversDB = await Promise.all(
                 allDriversDB.map(async (driver)=>{

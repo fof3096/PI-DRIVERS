@@ -1,15 +1,13 @@
 const { Team } = require('../db');
 
-const createTeam = async (allTeams) => {
-    try {
-        await Promise.all(
-            Array.from(allTeams).map(async (team) => {
-                await Team.findOrCreate({where : {name: team}})
-            })
-        )
-    } catch (error) {
-        throw new Error(error)
-    }
+const createTeam = (allTeams) => {
+    
+    Promise.all(
+        /* Si no usas await, el .map devolverá un array de promesas pendientes, que luego serán resueltas por el Promise.all. El resultado final será el mismo, pero estarás haciendo un paso innecesario  */
+        Array.from(allTeams).map(async (team) => {
+            await Team.findOrCreate({where : {name: team}})
+        })
+    )
 }
 
 module.exports = {
