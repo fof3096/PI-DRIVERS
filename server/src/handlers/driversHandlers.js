@@ -107,6 +107,7 @@ const getAllDrivers = async (req, res)=>{
                 birthDate:driver.dob,
             }
         })
+        
         /*     DB     */
         const driverDB = await getAllDriversDB();
         const newDrivers = await Promise.all(
