@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 const { Driver, Team, Driver_Team } = require('../db');
 
-/* DATA BASE */
+// DRIVERS
 const searchDriverByForenameAndSurname = (name) => {
     return Driver.findAll({
         where: {
@@ -20,10 +20,33 @@ const searchDriverByForenameAndSurname = (name) => {
         }
     })
 }
-const searchRelationsDB = (driverID) => {
-    return Driver_Team.findAll({where: {DriverId: driverID}})
+
+const getAllDriversDB = () => {
+    return Driver.findAll();
 }
 
+const searchDriverByIDDB = (driverID) => {
+    return Driver.findOne({where: {id: driverID}});
+}
+
+const searchLastDriverDB = () => {
+    return Driver.findOne({ order: [['createdAt', 'DESC']] });
+}
+
+const searchOrCreateDriverDB = (newDriver) => {
+    return Driver.findOrCreate({where: newDriver});
+}
+
+// DRIVER_TEAM
+const searchRelationsDB = (driverID) => {
+    return Driver_Team.findAll({where: {DriverId: driverID}});
+}
+
+const createRelationsDB = (driverID, teamID) => {
+    return Driver_Team.create({ DriverId: driverID, TeamId: teamID });
+}
+
+// TEAM
 const getTeamsDriverDB = (intermediateTable) => {
     return Promise.all(
         intermediateTable.map(async (relationsFound) => {
@@ -36,6 +59,11 @@ const getTeamsDriverDB = (intermediateTable) => {
 
 module.exports = {
     searchDriverByForenameAndSurname,
+    getAllDriversDB,
+    searchDriverByIDDB,
+    searchLastDriverDB,
+    searchOrCreateDriverDB,
     searchRelationsDB,
+    createRelationsDB,
     getTeamsDriverDB,
 }
