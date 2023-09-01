@@ -84,10 +84,28 @@ const getByQueryDrivers = async (req, res, next) => {
 
 const getAllDrivers = async (req, res)=>{
     try {
+        /*     DB     */
+        const driverDB = await getAllDriversDB();
+        const driversDB = await Promise.all(
+            driverDB.map(async (driver)=>{
+                const relationsFound = await searchRelationsDB(driver.id);
+                const teamsDriver = await getTeamsDriverDB(relationsFound);
+                return {
+                    id: driver.id,
+                    forename: driver.forename,
+                    surname: driver.surname,
+                    description: driver.description,
+                    image: driver.image,
+                    nationality: driver.nationality,
+                    teams: teamsDriver,
+                    birthDate: driver.birthDate,
+                }
+            })
+        )
+
         /*     API     */
         const response = await axios.get("http://localhost:5000/drivers");
-        const drivers = response.data.map((driver)=>{
-
+        const driversAPI = response.data.map((driver)=>{
             let teamsArray = [];
             if (driver.teams) {
                 teamsArray = teamsToArray(driver.teams);
@@ -104,26 +122,7 @@ const getAllDrivers = async (req, res)=>{
             }
         })
         
-        /*     DB     */
-        const driverDB = await getAllDriversDB();
-        const newDrivers = await Promise.all(
-            driverDB.map(async (driver)=>{
-                const relationsFound = await searchRelationsDB(driver.id);
-                const teamsDriver = await getTeamsDriverDB(relationsFound);
-                return {
-                    id: driver.id,
-                    forename: driver.forename,
-                    surname: driver.surname,
-                    description: driver.description,
-                    image: driver.image,
-                    nationality: driver.nationality,
-                    teams: teamsDriver,
-                    birthDate: driver.birthDate,
-                }
-            })
-        )
-        
-        res.json([...newDrivers, ...drivers]);
+        res.json([...driversDB, ...driversAPI]);
     } catch (error) {
         res.status(400).json({error: "No se encontraron Corredores"})
     }
@@ -181,7 +180,7 @@ const getByIdDriver = async (req, res)=>{
 }
 
 const postDrivers = async (req, res)=>{
-    const { 
+    let { 
         forename,
         surname,
         description,
@@ -190,6 +189,9 @@ const postDrivers = async (req, res)=>{
         birthDate,
         teams 
     } = req.body;
+
+    forename = prepareString(forename);
+    surname = prepareString(surname);
 
     if ( forename && surname && description && nationality && birthDate && teams ) {
         try {
