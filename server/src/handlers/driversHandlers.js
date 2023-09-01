@@ -1,9 +1,6 @@
 // LIBRERIAS
 const axios = require("axios");
 
-// MODELOS
-const { Driver, Driver_Team } = require('../db');
-
 // UTILS
 const { prepareString, teamsToArray } = require("../utils/utils");
 
@@ -20,9 +17,8 @@ const {
 } = require("../controllers/driversControllers");
 
 const getByQueryDrivers = async (req, res, next) => {
-    // QUERY
-    let { name } = req.query;
 
+    let { name } = req.query;
     if(name){
         name = prepareString(name);
 
@@ -129,17 +125,17 @@ const getAllDrivers = async (req, res)=>{
         
         res.json([...newDrivers, ...drivers]);
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({error: "No se encontraron Corredores"})
     }
 }
-//TODO: cambiar el /:id por un /:idDriver
+
 const getByIdDriver = async (req, res)=>{
-    const { id } = req.params;
-    if (id.length > 5) {
+    const { idDriver } = req.params;
+    if (idDriver.length > 5) {
         try {
             /*     DB     */
-            const driverDB = await searchDriverByIDDB(id);
-            const relationsFound = await searchRelationsDB(id);
+            const driverDB = await searchDriverByIDDB(idDriver);
+            const relationsFound = await searchRelationsDB(idDriver);
             const teamsDriver = await getTeamsDriverDB(relationsFound);
 
             const getDriverDB = {
@@ -154,12 +150,12 @@ const getByIdDriver = async (req, res)=>{
             }
             res.json(getDriverDB);
         } catch (error) {
-            res.status(400).json({error: error.message})
+            res.status(400).json({error: "No se encontro al corredor"})
         }
     }else{
         try {
             /*     API     */
-            const response = await axios.get(`http://localhost:5000/drivers/${id}`);
+            const response = await axios.get(`http://localhost:5000/drivers/${idDriver}`);
             const { data } = response;
 
             let teamsArray = [];

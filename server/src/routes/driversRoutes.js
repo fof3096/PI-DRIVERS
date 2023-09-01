@@ -14,7 +14,7 @@ driversRoutes.get("/", getByQueryDrivers)
 driversRoutes.get("/", getAllDrivers)
 
 // GET DRIVER by ID
-driversRoutes.get("/:id", getByIdDriver)
+driversRoutes.get("/:idDriver", getByIdDriver)
 
 // POST DRIVER
 // TODO: Transformar el FORENAME y SURNAME  para que comiencen con MAYUSCULAS o usar validaciones por FORM
