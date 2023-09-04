@@ -5,6 +5,8 @@ import Detail from './view/Detail/Detail'
 import Form from './view/Form/Form'
 import { Route, Routes } from 'react-router-dom'
 
+
+
 function App() {
 
   return (

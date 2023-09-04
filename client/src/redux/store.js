@@ -1,11 +1,7 @@
-let initialState = {};
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducer';
+// STORE
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
-function rootReducer(state = initialState, action) {
-    switch (action.type) {
-        case ADD_EJEMPLO:
-            return action.payload;
-    
-        default:
-            return {...state};
-    }
-}
+export default store;
