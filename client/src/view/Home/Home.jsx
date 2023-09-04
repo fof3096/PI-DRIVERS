@@ -4,11 +4,15 @@ import { getDrivers } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
 
 function Home() {
-    let drivers = useSelector((state) => state.allDrivers);
+    // Traigo de la store
+    let allDrivers = useSelector((state) => state.allDrivers);
+    let filterDrivers = useSelector((state) => state.DriversCopy);
 
+    let drivers = allDrivers.slice(0,9);
     const dispatch = useDispatch();
 
     useEffect(()=>{
+        //Carga a "allDrivers" y "DriversCopy"
         dispatch(getDrivers());
     },[])
 

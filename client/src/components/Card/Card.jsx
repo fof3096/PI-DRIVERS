@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function Card(props) {
     const { 
@@ -11,21 +12,24 @@ function Card(props) {
         teams,
         birthDate
     } = props;
+
+    console.log(props);
     return (
     <div>
         <h3>{forename}</h3>
         <h3>{surname}</h3>
         <p>{description}</p>
-        <img src={image} alt={`corredor ${id}`} />
-        <h2>{nationality}</h2>
+        <img src={image} alt={`corredor ${id}`} height="200px" />
+        <h2>Nationality: {nationality}</h2>
         <ul>
         {
         teams.map((team, index) => {
             return <li key={index}>{team}</li>
         })
         }
-        <h3>{birthDate}</h3>
         </ul>
+        <h3>{birthDate}</h3>
+        <Link to={`/detail/${id}`}>Conocer más</Link>
     </div>
     )
 }
