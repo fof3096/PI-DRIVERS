@@ -1,10 +1,11 @@
 import React from 'react'
 import Card from '../Card/Card'
+import style from './Cards.module.css'
 
 function Cards({drivers}) {
 
     return (
-    <div>
+    <div className={style.container}>
         {
             drivers.map(driver =>{
                 return(

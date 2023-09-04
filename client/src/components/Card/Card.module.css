@@ -1,0 +1,33 @@
+.container{
+    display: inline-block;
+    background-color: rgb(224, 11, 11);
+    width: 380px;
+    border-radius: 30px;
+    border-style: solid;
+    border-width: 8px;
+    border-color: rgb(155, 25, 25);
+    padding: 30px;
+    margin: 40px;
+}
+
+.container__img{
+    display: block;
+    border-radius: 6px;
+}
+
+.container__teams{
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center; /* centra verticalmente */
+    height: 80px;
+}
+
+.container__button{
+    background-color: black;
+}
+.container__button__link{
+    text-decoration: none;
+}
+
