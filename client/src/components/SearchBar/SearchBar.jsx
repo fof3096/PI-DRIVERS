@@ -1,13 +1,18 @@
+// ESTILOS
+import style from "./SearchBar.module.css";
+
+// LIBRERÍAS
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
+// ACTIONS
 import { showAllDrivers, searchByName } from "../../redux/actions";
-import style from "./SearchBar.module.css"
 
 function SearchBar() {
     const [searchBar, setSearchBar] = useState("");
     const dispatch = useDispatch();
 
-    
+
     function handleChange (event){
         setSearchBar(event.target.value);
         dispatch(searchByName(event.target.value));
@@ -20,9 +25,9 @@ function SearchBar() {
 
     return (
     <div>
-        <label htmlFor="search" >Search</label>
+        <label htmlFor="search" >Search:</label>
         <input className={style.searchbar} onChange={handleChange} type="text" id="search" value={searchBar}/>
-        <button onClick={viewAllDrivers}>View All Drivers</button>
+        <button className={style.buttom} onClick={viewAllDrivers}>ALL DRIVERS</button>
     </div>
     )
 }

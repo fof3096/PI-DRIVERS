@@ -1,4 +1,7 @@
+// ESTILOS
 import style from './Landing.module.css'
+
+// LIBRERÍAS
 import { Link } from 'react-router-dom'
 
 function Landing() {

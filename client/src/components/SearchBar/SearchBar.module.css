@@ -1,3 +1,14 @@
 .searchbar{
     background-color: blueviolet;
+    border-style: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.buttom{
+    background-color: royalblue;
+    color: aliceblue;
+    padding: 5px 10px;
+    border-style: solid;
+    margin-left: 20px;
 }

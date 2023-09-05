@@ -1,7 +1,7 @@
-import axios from 'axios';
 export const GET_DRIVERS = "GET_DRIVERS";
 export const SHOW_ALL_DRIVER = "SHOW_ALL_DRIVER";
 export const SEARCH_BY_NAME = "SEARCH_BY_NAME";
+import axios from 'axios';
 
 export const getDrivers = () => {
     return async (dispatch) => {
