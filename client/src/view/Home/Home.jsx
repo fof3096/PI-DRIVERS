@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDrivers } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
-import SearchBar from "../../components/SearchBar/SearchBar";
 
 function Home() {
     // Traigo de la store
@@ -17,7 +16,6 @@ function Home() {
 
     return (
         <div>
-            <SearchBar />
             <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice(0,9) : actualDrivers}/>
         </div>
     )
