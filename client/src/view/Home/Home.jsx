@@ -8,7 +8,6 @@ function Home() {
     // Traigo de la store
     let actualDrivers = useSelector((state) => state.actualDrivers);
 
-    let drivers = actualDrivers.slice(0,9);
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -19,7 +18,7 @@ function Home() {
     return (
         <div>
             <SearchBar />
-            <Cards drivers={actualDrivers.slice(0,9)}/>
+            <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice(0,9) : actualDrivers}/>
         </div>
     )
 }

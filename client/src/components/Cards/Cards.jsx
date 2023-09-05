@@ -5,7 +5,7 @@ import style from './Cards.module.css'
 function Cards({drivers}) {
 
     return (
-    <div className={style.container}>
+    <div>
         {
             drivers.map(driver =>{
                 return(

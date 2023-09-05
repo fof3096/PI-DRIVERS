@@ -1,4 +1,5 @@
-import { GET_DRIVERS, SHOW_ALL_DRIVER } from "./actions";
+import axios from "axios";
+import { GET_DRIVERS, SHOW_ALL_DRIVER, SEARCH_BY_NAME } from "./actions";
 
 const initialState = {
     allDrivers: [],
@@ -20,6 +21,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 actualDrivers: state.allDrivers
+            };
+        
+        case SEARCH_BY_NAME:
+            return {
+                ...state,
+                actualDrivers: action.payload
             };
     
         default:
