@@ -6,7 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 // ACTIONS
-import { getDrivers, getTeams } from "../../redux/actions";
+import { 
+    getDrivers, 
+    getTeams, 
+    showAllDrivers, 
+    filterByTeam,
+    orderByNameAsc,
+    orderByNameDsc
+} from "../../redux/actions";
 
 // COMPONENTES
 import Cards from "../../components/Cards/Cards";
@@ -25,10 +32,19 @@ function Home() {
     },[])
 
     function handleChange(event) {
-        console.log(event.target.value);
+        dispatch(filterByTeam(event.target.value));
     }
 
-    function viewAllDrivers() {
+    function orderByNameAscending(){
+        dispatch(orderByNameAsc(actualDrivers))
+        console.log("hola");
+    }
+    
+    function orderByNameDescending(){
+        dispatch(orderByNameDsc(actualDrivers))
+    }
+
+    function resetFilters() {
         dispatch(showAllDrivers());
     }
 
@@ -42,10 +58,16 @@ function Home() {
             }) 
             }
             </select>
-            <button onClick={viewAllDrivers} className={style.button}>Reset filters</button>
+            <span>Name</span>
+            <button onClick={orderByNameAscending} className={style.button}>ASC</button>
+            <button onClick={orderByNameDescending} className={style.button}>DSC</button>
+            <button onClick={resetFilters} className={style.button}>Reset filters</button>
             <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice(0,9) : actualDrivers}/>
         </div>
     )
 }
 
+/* if (action.payload == "ATK(+)") {
+    orderedByPokedex = state.allPokemons.sort((a, b)=> (b.atack > a.atack ? 1 : -1));
+} */
 export default Home;
