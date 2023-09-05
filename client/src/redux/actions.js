@@ -1,5 +1,6 @@
 import axios from 'axios';
 export const GET_DRIVERS = "GET_DRIVERS";
+export const SHOW_ALL_DRIVER = "SHOW_ALL_DRIVER";
 
 export const getDrivers = () => { //! NO FUNCIONA
     return async (dispatch) => {
@@ -12,5 +13,11 @@ export const getDrivers = () => { //! NO FUNCIONA
         } catch (error) {
             console.log(error.message);
         }
+    }
+}
+export const showAllDrivers = () => {
+    return{
+        type: SHOW_ALL_DRIVER,
+        payload: ""
     }
 }

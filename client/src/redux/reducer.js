@@ -1,8 +1,9 @@
-import { GET_DRIVERS } from "./actions";
+import { GET_DRIVERS, SHOW_ALL_DRIVER } from "./actions";
 
 const initialState = {
     allDrivers: [],
-    DriversCopy: []
+    DriversCopy: [],
+    actualDrivers: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -12,7 +13,13 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allDrivers: action.payload,
-                DriversCopy: action.payload
+                actualDrivers: action.payload
+            };
+        
+        case SHOW_ALL_DRIVER:
+            return {
+                ...state,
+                actualDrivers: state.allDrivers
             };
     
         default:
