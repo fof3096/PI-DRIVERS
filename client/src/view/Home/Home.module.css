@@ -1,0 +1,11 @@
+.select{ /* El seleccionado */
+    color: black;
+}
+
+.select__option{ /* Los no seleccionados */
+    color: black;
+}
+
+.button{
+    color: black;
+}

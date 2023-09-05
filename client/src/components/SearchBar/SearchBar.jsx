@@ -26,7 +26,7 @@ function SearchBar() {
     return (
     <>
         <label htmlFor="search" >Search:</label>
-        <input className={style.searchbar} onChange={handleChange} type="text" id="search" value={searchBar}/>
+        <input className={style.searchbar} onChange={handleChange} type="text" id="search" value={searchBar} placeholder="Name or Surname"/>
         <button className={style.buttom} onClick={viewAllDrivers}>ALL DRIVERS</button>
     </>
     )

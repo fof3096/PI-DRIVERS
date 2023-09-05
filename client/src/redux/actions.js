@@ -1,15 +1,31 @@
 export const GET_DRIVERS = "GET_DRIVERS";
+export const GET_TEAMS = "GET_TEAMS";
 export const SHOW_ALL_DRIVER = "SHOW_ALL_DRIVER";
 export const SEARCH_BY_NAME = "SEARCH_BY_NAME";
+export const FILTER_BY_TEAM = "FILTER_BY_TEAM";
 import axios from 'axios';
 
 export const getDrivers = () => {
     return async (dispatch) => {
         try {
-            axios.get("http://localhost:3001/teams")
+            /* axios.get("http://localhost:3001/teams") */
             const response = await axios.get("http://localhost:3001/drivers");
             return dispatch({ // Sí no me equivoco ☝, el dispatch es una propiedad que viene por default en la store
                 type: GET_DRIVERS,
+                payload: response.data
+            })
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+}
+
+export const getTeams = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get("http://localhost:3001/teams");
+            return dispatch({ // Sí no me equivoco ☝, el dispatch es una propiedad que viene por default en la store
+                type: GET_TEAMS,
                 payload: response.data
             })
         } catch (error) {
@@ -36,5 +52,12 @@ export const searchByName = (name) => {
         } catch (error) {
             console.log(error.message);
         }
+    }
+}
+
+export const filterByTeam = () => {
+    return{
+        type: FILTER_BY_TEAM,
+        payload: ""
     }
 }
