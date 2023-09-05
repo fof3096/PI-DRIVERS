@@ -3,13 +3,18 @@
     padding: 20px;
 }
 
-.container__buttom{
+.container__containerButtons{
+    display: inline;
+    margin-left: 50em;
+}
+
+.containerButtons__button{
     background-color: rgb(255, 255, 255);
     border-style: solid;
     border-color: red;
 }
 
-.container__buttom__link{
+.containerButtons__link{
     text-decoration: none;
     color: red;
 }

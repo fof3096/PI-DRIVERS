@@ -24,11 +24,11 @@ function SearchBar() {
     }
 
     return (
-    <div>
+    <>
         <label htmlFor="search" >Search:</label>
         <input className={style.searchbar} onChange={handleChange} type="text" id="search" value={searchBar}/>
         <button className={style.buttom} onClick={viewAllDrivers}>ALL DRIVERS</button>
-    </div>
+    </>
     )
 }
 
