@@ -91,7 +91,7 @@ export const orderByNameDsc = (drivers) => {
 }
 
 export const orderByBirthDateAsc = (drivers) => {
-    const result = [...drivers].sort((a, b) => a.birthDate > b.birthDate);
+    const result = [...drivers].sort((a, b) => new Date(b.birthDate).getTime() - new Date(a.birthDate).getTime());
     return{
         type: ORDER_BY_BIRTHDATE_ASC,
         payload: result
@@ -99,7 +99,7 @@ export const orderByBirthDateAsc = (drivers) => {
 }
 
 export const orderByBirthDateDsc = (drivers) => {
-    const result = [...drivers].sort((a, b) => b.birthDate > a.birthDate);
+    const result = [...drivers].sort((a, b) => new Date(a.birthDate).getTime() - new Date(b.birthDate).getTime());
     return{
         type: ORDER_BY_BIRTHDATE_DSC,
         payload: result

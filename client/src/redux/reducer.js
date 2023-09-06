@@ -5,7 +5,9 @@ import {
     SEARCH_BY_NAME,
     FILTER_BY_TEAM,
     ORDER_BY_NAME_ASC,
-    ORDER_BY_NAME_DSC
+    ORDER_BY_NAME_DSC,
+    ORDER_BY_BIRTHDATE_ASC,
+    ORDER_BY_BIRTHDATE_DSC
 } from "./actions";
 
 const initialState = {
@@ -60,6 +62,19 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 actualDrivers: action.payload
             };
+            
+        case ORDER_BY_BIRTHDATE_ASC:
+            return {
+                ...state,
+                actualDrivers: action.payload
+            };
+            
+        case ORDER_BY_BIRTHDATE_DSC:
+            return {
+                ...state,
+                actualDrivers: action.payload
+            };
+
     
         default:
             return {...state};

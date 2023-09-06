@@ -12,7 +12,9 @@ import {
     showAllDrivers, 
     filterByTeam,
     orderByNameAsc,
-    orderByNameDsc
+    orderByNameDsc,
+    orderByBirthDateAsc,
+    orderByBirthDateDsc
 } from "../../redux/actions";
 
 // COMPONENTES
@@ -43,6 +45,15 @@ function Home() {
     function orderByNameDescending(){
         dispatch(orderByNameDsc(actualDrivers))
     }
+    
+    function orderByBirthDateAscending(){
+        dispatch(orderByBirthDateAsc(actualDrivers))
+        console.log("hola");
+    }
+    
+    function orderByBirthDateDescending(){
+        dispatch(orderByBirthDateDsc(actualDrivers))
+    }
 
     function resetFilters() {
         dispatch(showAllDrivers());
@@ -58,9 +69,14 @@ function Home() {
             }) 
             }
             </select>
-            <span>Name</span>
+            <span>Name: </span>
             <button onClick={orderByNameAscending} className={style.button}>ASC</button>
             <button onClick={orderByNameDescending} className={style.button}>DSC</button>
+            
+            <span>Birth Date: </span>
+            <button onClick={orderByBirthDateAscending} className={style.button}>ASC</button>
+            <button onClick={orderByBirthDateDescending} className={style.button}>DSC</button>
+
             <button onClick={resetFilters} className={style.button}>Reset filters</button>
             <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice(0,9) : actualDrivers}/>
         </div>
