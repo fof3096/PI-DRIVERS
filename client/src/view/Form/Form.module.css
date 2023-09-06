@@ -1,0 +1,21 @@
+.container{
+    background-color: white;
+    color: rgb(37, 12, 255);
+    border: solid red;
+    border-width: 3px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container input{
+    display: block;
+}
+
+.container textarea{
+    display: block;
+}
+
+.container li{
+    display: inline;
+}

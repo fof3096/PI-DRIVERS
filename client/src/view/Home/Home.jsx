@@ -19,6 +19,7 @@ import {
 
 // COMPONENTES
 import Cards from "../../components/Cards/Cards";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 function Home() {
     // Traigo de la store
@@ -33,10 +34,12 @@ function Home() {
         dispatch(getTeams());
     },[])
 
+    //  HANDLER
     function handleChange(event) {
         dispatch(filterByTeam(event.target.value));
     }
 
+    // DISPATCHS
     function orderByNameAscending(){
         dispatch(orderByNameAsc(actualDrivers))
         console.log("hola");
@@ -50,7 +53,7 @@ function Home() {
         dispatch(orderByBirthDateAsc(actualDrivers))
         console.log("hola");
     }
-    
+
     function orderByBirthDateDescending(){
         dispatch(orderByBirthDateDsc(actualDrivers))
     }
@@ -61,6 +64,7 @@ function Home() {
 
     return (
         <div>
+            <SearchBar />
             <select  onChange={handleChange} className={style.select} >
             {
                 allTeams.map((team, i)=>{
