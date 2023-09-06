@@ -65,8 +65,8 @@ function Home() {
             {
                 allTeams.map((team, i)=>{
                 return (
-                    <option className={style.select__option} value={team} key={i} >{team}</option>)
-            }) 
+                    <option className={style.select__option} value={team} id={i} key={i} >{team}</option>)
+                }) 
             }
             </select>
             <span>Name: </span>
@@ -83,7 +83,4 @@ function Home() {
     )
 }
 
-/* if (action.payload == "ATK(+)") {
-    orderedByPokedex = state.allPokemons.sort((a, b)=> (b.atack > a.atack ? 1 : -1));
-} */
 export default Home;
