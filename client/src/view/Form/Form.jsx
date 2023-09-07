@@ -73,7 +73,8 @@ function Form() {
     function handlerCreate() {
         dispatch(createDriver(input));
     }
-
+    
+    {error.forename && <p>{error.forename}</p>}
     return (
         <div className={style.container} >
             <form onSubmit={handlerSubmit}>
@@ -83,6 +84,7 @@ function Form() {
                 
                 <label htmlFor="surname">Surname</label>
                 <input onChange={handlerChange} type="text" id="surname" name="surname" value={input.surname}/>
+                {error.surname && <p>{error.surname}</p>}
                 
                 <label htmlFor="description">Description</label>
                 <textarea onChange={handlerChange} id="description" name="description" value={input.description}/>
@@ -92,11 +94,14 @@ function Form() {
                 
                 <label htmlFor="nationality">Nationality</label>
                 <input onChange={handlerChange} type="text" id="nationality" name="nationality" value={input.nationality}/>
+                {error.nationality && <p>{error.nationality}</p>}
                 
                 <label htmlFor="birthDate">BirthDate</label>
                 <input onChange={handlerChange} type="date" id="birthDate" name="birthDate" value={input.birthDate}/>
+                {error.birthDate && <p>{error.birthDate}</p>}
                 
                 <label htmlFor="teams">Teams</label>
+                {error.teams && <p>{error.teams}</p>}
                 <ul>
                     {input.teams.map((team, i) => <li key={i}>{team}</li>)}
                 </ul>
@@ -105,7 +110,7 @@ function Form() {
                         allTeams.map((team, i)=> <li key={i} ><button onClick={handlerTeams} value={team}>{team}</button></li>)
                     }
                 </ul>
-                <button onClick={handlerCreate} type="submit">Enviar</button>
+                {Object.key(error) == 0 && <button onClick={handlerCreate} type="submit">Enviar</button>}
             </form>
 
         </div>
