@@ -210,13 +210,12 @@ const postDrivers = async (req, res)=>{
             if (response[1] === false) {
                 res.send("Este Corredor ya existe");
             }else if(response[1] === true){
-                // Busca al ultimo DRIVER creado
+                //! Busca al ultimo DRIVER creado
                 const lastDriver = await searchLastDriverDB();
 
-                await Promise.all(teams.map(async (teamID) => {
+                await Promise.all(teams.map(async (teamName) => {
                     try {
-                        await createRelationsDB(lastDriver.id, teamID);
-                        
+                        await createRelationsDB(lastDriver.id, teamName);     
                     } catch (error) {
                         throw new Error("Error en la creacion del Conductor");
                     }

@@ -42,8 +42,9 @@ const searchRelationsDB = (driverID) => {
     return Driver_Team.findAll({where: {DriverId: driverID}});
 }
 
-const createRelationsDB = (driverID, teamID) => {
-    return Driver_Team.create({ DriverId: driverID, TeamId: teamID });
+const createRelationsDB = async (driverID, teamName) => {
+    const teamData = await Team.findOne({where:{name: teamName}});
+    return Driver_Team.create({ DriverId: driverID, TeamId: teamData.id });
 }
 
 // TEAM
