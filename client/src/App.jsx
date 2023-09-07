@@ -1,18 +1,22 @@
+// ESTILOS
 import './App.css'
+// COMPONENTES
 import Landing from './view/Landing/Landing'
 import Home from './view/Home/Home'
 import Detail from './view/Detail/Detail'
 import Form from './view/Form/Form'
-import { Route, Routes } from 'react-router-dom'
 import NavBar from './view/NavBar/NavBar'
-
+// LIBRERÍAS
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 
 function App() {
 
+  const {pathname} = useLocation();
+  console.log(pathname);
   return (
     <>
-    <NavBar />
+    {pathname !== "/" && <NavBar />}
 
     <Routes>
       <Route path='/' element={<Landing />} />

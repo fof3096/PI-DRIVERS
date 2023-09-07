@@ -42,7 +42,6 @@ function Home() {
     // DISPATCHS
     function orderByNameAscending(){
         dispatch(orderByNameAsc(actualDrivers))
-        console.log("hola");
     }
     
     function orderByNameDescending(){
@@ -51,7 +50,6 @@ function Home() {
     
     function orderByBirthDateAscending(){
         dispatch(orderByBirthDateAsc(actualDrivers))
-        console.log("hola");
     }
 
     function orderByBirthDateDescending(){
