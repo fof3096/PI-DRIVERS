@@ -21,9 +21,11 @@ const getAllTeams = async (req,res)=>{
             }            
         })
         // Busca el "team" en la DB y sí no encuentra lo crea
-        createTeam(noRepeat);
+        // dentro convierte el set en array
+        const AllTeams = Array.from(noRepeat).sort();
+        createTeam(AllTeams);
 
-        res.json(Array.from(noRepeat));
+        res.json(AllTeams);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
