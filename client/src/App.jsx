@@ -13,7 +13,6 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 function App() {
 
   const {pathname} = useLocation();
-  console.log(pathname);
   return (
     <>
     {pathname !== "/" && <NavBar />}

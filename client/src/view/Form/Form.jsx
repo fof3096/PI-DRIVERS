@@ -61,8 +61,13 @@ function Form() {
         }))
     }
 
-    function handlerTeams(event) { /* CONTINUAR */
-        setInput({...input, teams: [...input.teams, event.target.value]})
+    function handlerTeams(event) {
+        let team = event.target.value;
+        if(input.teams.includes(team)){
+            setInput({...input, teams:input.teams.filter(t => t !== team)})
+        }else{
+            setInput({...input, teams: [...input.teams, team]})
+        }
     }
 
     return (
@@ -89,8 +94,11 @@ function Form() {
                 
                 <label htmlFor="teams">Teams</label>
                 <ul>
+                    {input.teams.map((team, i) => <li key={i}>{team}</li>)}
+                </ul>
+                <ul>
                     {
-                        allTeams.map((team, i)=> <li key={i} ><button value={i}>{team}</button></li>)
+                        allTeams.map((team, i)=> <li key={i} ><button onClick={handlerTeams} value={team}>{team}</button></li>)
                     }
                 </ul>
                 <button type="submit">Enviar</button>
@@ -99,15 +107,4 @@ function Form() {
         </div>
     )
 }
-/* 
-{
-    "forename": "pollunv",
-    "surname":"abcde",
-    "description":"Era el mejor chmabeador",
-    "image":"",
-    "nationality":"Chamba",
-    "birthDate":"1990-05-15",
-    "teams":["1","2","20","11","22"]
-}
- */
 export default Form;

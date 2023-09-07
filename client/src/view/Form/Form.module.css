@@ -9,20 +9,3 @@
     padding: 35px;
 }
 
-.container input{
-    display: block;
-}
-
-.container textarea{
-    display: block;
-}
-
-.container li{
-    display: inline;
-}
-
-.container button{
-    padding: 30px;
-    border-style: solid;
-    margin: 1px;
-}
