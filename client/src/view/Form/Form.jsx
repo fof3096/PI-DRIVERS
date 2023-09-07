@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Form.module.css";
 import { useEffect, useState } from "react";
-import { getTeams } from "../../redux/actions";
+import { getTeams, createDriver } from "../../redux/actions";
 
 function Form() {
 
@@ -70,6 +70,10 @@ function Form() {
         }
     }
 
+    function handlerCreate() {
+        dispatch(createDriver(input));
+    }
+
     return (
         <div className={style.container} >
             <form onSubmit={handlerSubmit}>
@@ -101,7 +105,7 @@ function Form() {
                         allTeams.map((team, i)=> <li key={i} ><button onClick={handlerTeams} value={team}>{team}</button></li>)
                     }
                 </ul>
-                <button type="submit">Enviar</button>
+                <button onClick={handlerCreate} type="submit">Enviar</button>
             </form>
 
         </div>

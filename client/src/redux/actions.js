@@ -109,7 +109,6 @@ export const orderByBirthDateDsc = (drivers) => {
 }
 
 export const createDriver = (newDriver) => {
-
     return async () => {
         try {
             const {data} = await axios.post(`http://localhost:3001/drivers`, newDriver);
