@@ -61,6 +61,10 @@ function Form() {
         }))
     }
 
+    function handlerTeams(event) { /* CONTINUAR */
+        setInput({...input, teams: [...input.teams, event.target.value]})
+    }
+
     return (
         <div className={style.container} >
             <form onSubmit={handlerSubmit}>

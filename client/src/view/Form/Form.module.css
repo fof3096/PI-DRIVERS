@@ -3,9 +3,10 @@
     color: rgb(37, 12, 255);
     border: solid red;
     border-width: 3px;
-    width: 500px;
+    width: 800px;
     margin-left: auto;
     margin-right: auto;
+    padding: 35px;
 }
 
 .container input{
@@ -18,4 +19,10 @@
 
 .container li{
     display: inline;
+}
+
+.container button{
+    padding: 30px;
+    border-style: solid;
+    margin: 1px;
 }

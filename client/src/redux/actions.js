@@ -59,7 +59,7 @@ export const searchByName = (name) => {
             console.log(error.message);
         }
     }
-}
+} 
 
 export const filterByTeam = (teamSelected) => {
     return async (dispatch) => {
@@ -105,5 +105,17 @@ export const orderByBirthDateDsc = (drivers) => {
     return{
         type: ORDER_BY_BIRTHDATE_DSC,
         payload: result
+    }
+}
+
+export const createDriver = (newDriver) => {
+
+    return async () => {
+        try {
+            const {data} = await axios.post(`http://localhost:3001/drivers`, newDriver);
+            return data;
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 }
