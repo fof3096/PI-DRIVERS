@@ -210,7 +210,7 @@ const postDrivers = async (req, res)=>{
             if (response[1] === false) {
                 res.send("Este Corredor ya existe");
             }else if(response[1] === true){
-                //! Busca al ultimo DRIVER creado
+
                 const lastDriver = await searchLastDriverDB();
 
                 await Promise.all(teams.map(async (teamName) => {
