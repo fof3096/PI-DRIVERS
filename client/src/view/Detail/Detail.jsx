@@ -20,6 +20,17 @@ function Detail() {
         axios.get(`http://localhost:3001/drivers/${idDriver}`)
         .then(({data}) => setDriver(data))
         .catch((error) => console.log(error.message))
+
+        return()=> setDriver({
+            id: "",
+            forename: "",
+            surname: "",
+            description: "",
+            image: "",
+            nationality: "",
+            teams: "",
+            birthDate: ""
+        })
     },[])
 
     const {

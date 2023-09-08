@@ -31,7 +31,7 @@ function Home() {
     const [numPage, setNumPage] = useState(1);
     const [limitDriver, setLimitDriver] = useState(9);
 
-    const maxDrivers = Math.ceil(actualDrivers.length / limitDriver); //! REDONDEAR
+    const maxDrivers = Math.ceil(actualDrivers.length / limitDriver);
 
     const dispatch = useDispatch();
 
@@ -43,27 +43,33 @@ function Home() {
 
     //  HANDLER
     function handleChange(event) {
+        setNumPage(1);
         dispatch(filterByTeam(event.target.value));
     }
 
     // DISPATCHS
     function orderByNameAscending(){
+        setNumPage(1);
         dispatch(orderByNameAsc(actualDrivers))
     }
     
     function orderByNameDescending(){
+        setNumPage(1);
         dispatch(orderByNameDsc(actualDrivers))
     }
     
     function orderByBirthDateAscending(){
+        setNumPage(1);
         dispatch(orderByBirthDateAsc(actualDrivers))
     }
 
     function orderByBirthDateDescending(){
+        setNumPage(1);
         dispatch(orderByBirthDateDsc(actualDrivers))
     }
 
     function resetFilters() {
+        setNumPage(1);
         dispatch(showAllDrivers());
     }
 
@@ -71,6 +77,7 @@ function Home() {
         <div>
             <SearchBar />
             <select  onChange={handleChange} className={style.select} >
+            <option value="None">None</option>
             {
                 allTeams.map((team, i)=>{
                 return (
@@ -88,9 +95,9 @@ function Home() {
 
             <button onClick={resetFilters} className={style.button}>Reset filters</button>
             
-            {actualDrivers.length>16 && <Pagination numPage={numPage} setNumPage={setNumPage} maxDrivers={maxDrivers}/>}
+            <Pagination numPage={numPage} setNumPage={setNumPage} maxDrivers={maxDrivers}/>
 
-            <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice((numPage - 1) * limitDriver,(numPage - 1) * limitDriver + limitDriver) : actualDrivers}/>
+            <Cards drivers={actualDrivers.slice((numPage - 1) * limitDriver,(numPage - 1) * limitDriver + limitDriver)}/>
         </div>
     )
 }

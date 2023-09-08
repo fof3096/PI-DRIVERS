@@ -3,16 +3,15 @@ import style from "./Pagination.module.css";
 
 function Pagination(props) {
     const {  numPage, setNumPage, maxDrivers } = props;
-    
-    const [input, setInput] = useState(1);
+    // ! APUNTO DE PROBAR ALGO
+
+    const [input, setInput] = useState(numPage);
 
     function nextPage() {
-        setInput(parseInt(input + 1));
-        setNumPage(parseInt(numPage + 1));
+        setNumPage(parseInt(numPage - 1 + 2));
     }
     
     function previousPage() {
-        setInput(parseInt(input - 1));
         setNumPage(parseInt(numPage - 1));
     }
 
@@ -25,15 +24,16 @@ function Pagination(props) {
                 isNaN(parseInt(event.target.value))
             ) {
                 setNumPage(1);
-                setInput(1); 
+                setInput(1);
             } else{
+                setInput(event.target.value);
                 setNumPage(parseInt(event.target.value));
             }
         }
     }
 
     function handlerChange(event) {
-        setInput(event.target.value)
+        setInput(event.target.value);
     }
 
     return (
