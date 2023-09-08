@@ -3,7 +3,7 @@ import style from "./Home.module.css";
 
 // LIBRERÍAS
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // ACTIONS
 import { 
@@ -25,6 +25,10 @@ function Home() {
     // Traigo de la store
     let actualDrivers = useSelector((state) => state.actualDrivers);
     let allTeams = useSelector((state) => state.allTeams);
+
+    // PAGINADO
+    const [page, setPage] = useState(1);
+    const [limitDriver, setLimitDriver] = useState(9);
 
     const dispatch = useDispatch();
 
