@@ -8,19 +8,24 @@ import { useDispatch } from "react-redux";
 // ACTIONS
 import { showAllDrivers, searchByName } from "../../redux/actions";
 
-function SearchBar() {
+function SearchBar(props) {
+    const { setNumPage, setSelectedOption } = props;
     const [searchBar, setSearchBar] = useState("");
     const dispatch = useDispatch();
 
 
     function handleChange (event){
+        setNumPage(1);
         setSearchBar(event.target.value);
         dispatch(searchByName(event.target.value));
+        setSelectedOption("None");
     }
 
     function viewAllDrivers() {
+        setNumPage(1);
         setSearchBar("");
         dispatch(showAllDrivers());
+        setSelectedOption("None");
     }
 
     return (

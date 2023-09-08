@@ -61,13 +61,12 @@ export const searchByName = (name) => {
     }
 } 
 
-export const filterByTeam = (teamSelected) => {
+export const filterByTeam = (teamSelected, drivers) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`http://localhost:3001/drivers`);
-            const toPayload = response.data.filter((driver) => driver.teams.some((team) => team == teamSelected));
+            const toPayload = drivers.filter((driver) => driver.teams.some((team) => team == teamSelected));
             return dispatch({
-                type: SEARCH_BY_NAME,
+                type: FILTER_BY_TEAM,
                 payload: toPayload
             })
         } catch (error) {

@@ -25,7 +25,8 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allDrivers: action.payload,
-                actualDrivers: action.payload
+                actualDrivers: action.payload,
+                driversCopy: action.payload
             };
         
         case GET_TEAMS:
@@ -37,7 +38,8 @@ const rootReducer = (state = initialState, action) => {
         case SHOW_ALL_DRIVER:
             return {
                 ...state,
-                actualDrivers: state.allDrivers
+                actualDrivers: state.allDrivers,
+                driversCopy: state.allDrivers
             };
         
         case SEARCH_BY_NAME:

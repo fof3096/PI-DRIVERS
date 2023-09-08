@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 // ACTIONS
 import { 
     getDrivers, 
-    getTeams, 
-    showAllDrivers, 
+    getTeams,  
     filterByTeam,
     orderByNameAsc,
     orderByNameDsc,
@@ -27,10 +26,15 @@ function Home() {
     // Traigo de la store
     let actualDrivers = useSelector((state) => state.actualDrivers);
     let allTeams = useSelector((state) => state.allTeams);
+    let driversCopy = useSelector((state) => state.driversCopy);
 
     // PAGINADO
     const [numPage, setNumPage] = useState(1);
     const [limitDriver, setLimitDriver] = useState(9);
+    
+    // SELECT
+    const [selectedOption, setSelectedOption] = useState("None");
+
 
     const maxDrivers = Math.ceil(actualDrivers.length / limitDriver);
 
@@ -45,9 +49,13 @@ function Home() {
     },[])
 
     //  HANDLER
-    function handleChange(event) {
+    function handlerTeam(event) {
         setNumPage(1);
-        dispatch(filterByTeam(event.target.value));
+        if (event.target.value !== "None") {
+            dispatch(filterByTeam(event.target.value, driversCopy));
+        }else{
+            dispatch(deleteFilters());
+        }
     }
 
     // DISPATCHS
@@ -74,12 +82,16 @@ function Home() {
     function resetFilters() {
         setNumPage(1);
         dispatch(deleteFilters());
+        setSelectedOption("None");
     }
 
     return (
         <div>
-            <SearchBar />
-            <select  onChange={handleChange} className={style.select} >
+            <SearchBar setNumPage={setNumPage} setSelectedOption={setSelectedOption}/>
+            <select  onChange={(event) => {
+                setSelectedOption(event.target.value);
+                handlerTeam(event);
+            }} value={selectedOption} className={style.select} >
             <option value="None">None</option>
             {
                 allTeams.map((team, i)=>{
@@ -93,8 +105,8 @@ function Home() {
             <button onClick={orderByNameDescending} className={style.button}>DSC</button>
             
             <span>Birth Date: </span>
-            <button onClick={orderByBirthDateAscending} className={style.button}>ASC</button>
-            <button onClick={orderByBirthDateDescending} className={style.button}>DSC</button>
+            <button onClick={orderByBirthDateAscending} className={style.button}>Reciente</button>
+            <button onClick={orderByBirthDateDescending} className={style.button}>Antiguo</button>
 
             <button onClick={resetFilters} className={style.button}>Reset filters</button>
             
