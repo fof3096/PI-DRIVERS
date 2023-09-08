@@ -7,7 +7,7 @@ export const ORDER_BY_NAME_ASC = "ORDER_BY_NAME_ASC";
 export const ORDER_BY_NAME_DSC = "ORDER_BY_NAME_DSC";
 export const ORDER_BY_BIRTHDATE_ASC = "ORDER_BY_BIRTHDATE_ASC";
 export const ORDER_BY_BIRTHDATE_DSC = "ORDER_BY_BIRTHDATE_DSC";
-export const CREATE_DRIVER = "CREATE_DRIVER";
+export const DELETE_FILTERS = "DELETE_FILTERS";
 
 // LIBRERÍAS
 import axios from 'axios';
@@ -105,6 +105,13 @@ export const orderByBirthDateDsc = (drivers) => {
     return{
         type: ORDER_BY_BIRTHDATE_DSC,
         payload: result
+    }
+}
+
+export const deleteFilters = () => {
+    return{
+        type: DELETE_FILTERS,
+        payload: ""
     }
 }
 

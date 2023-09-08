@@ -14,7 +14,8 @@ import {
     orderByNameAsc,
     orderByNameDsc,
     orderByBirthDateAsc,
-    orderByBirthDateDsc
+    orderByBirthDateDsc,
+    deleteFilters
 } from "../../redux/actions";
 
 // COMPONENTES
@@ -39,6 +40,8 @@ function Home() {
         //Carga a "allDrivers" y "actualDrivers"
         dispatch(getDrivers());
         dispatch(getTeams());
+
+        return ()=> dispatch(getDrivers());
     },[])
 
     //  HANDLER
@@ -70,7 +73,7 @@ function Home() {
 
     function resetFilters() {
         setNumPage(1);
-        dispatch(showAllDrivers());
+        dispatch(deleteFilters());
     }
 
     return (

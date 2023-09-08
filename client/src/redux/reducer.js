@@ -7,12 +7,13 @@ import {
     ORDER_BY_NAME_ASC,
     ORDER_BY_NAME_DSC,
     ORDER_BY_BIRTHDATE_ASC,
-    ORDER_BY_BIRTHDATE_DSC
+    ORDER_BY_BIRTHDATE_DSC,
+    DELETE_FILTERS
 } from "./actions";
 
 const initialState = {
     allDrivers: [],
-    DriversCopy: [],
+    driversCopy: [],
     actualDrivers: [],
     allTeams: []
 };
@@ -42,7 +43,8 @@ const rootReducer = (state = initialState, action) => {
         case SEARCH_BY_NAME:
             return {
                 ...state,
-                actualDrivers: action.payload
+                actualDrivers: action.payload,
+                driversCopy: action.payload
             };
             
         case FILTER_BY_TEAM:
@@ -75,6 +77,11 @@ const rootReducer = (state = initialState, action) => {
                 actualDrivers: action.payload
             };
 
+        case DELETE_FILTERS:
+            return {
+                ...state,
+                actualDrivers: state.driversCopy
+            };
     
         default:
             return {...state};
