@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./Pagination.module.css";
 
 function Pagination(props) {
     const {  numPage, setNumPage, maxDrivers } = props;
     // ! APUNTO DE PROBAR ALGO
 
-    const [input, setInput] = useState(numPage);
+    const [input, setInput] = useState(1);
 
     function nextPage() {
         setNumPage(parseInt(numPage - 1 + 2));
@@ -24,9 +24,7 @@ function Pagination(props) {
                 isNaN(parseInt(event.target.value))
             ) {
                 setNumPage(1);
-                setInput(1);
             } else{
-                setInput(event.target.value);
                 setNumPage(parseInt(event.target.value));
             }
         }
@@ -35,6 +33,10 @@ function Pagination(props) {
     function handlerChange(event) {
         setInput(event.target.value);
     }
+
+    useEffect(()=>{
+        setInput(numPage);
+    },[numPage])
 
     return (
         <div className={style.container} >
