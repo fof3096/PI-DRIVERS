@@ -20,6 +20,7 @@ import {
 // COMPONENTES
 import Cards from "../../components/Cards/Cards";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Pagination from "../../components/Pagination/Pagination";
 
 function Home() {
     // Traigo de la store
@@ -27,8 +28,10 @@ function Home() {
     let allTeams = useSelector((state) => state.allTeams);
 
     // PAGINADO
-    const [page, setPage] = useState(1);
+    const [numPage, setNumPage] = useState(1);
     const [limitDriver, setLimitDriver] = useState(9);
+
+    const maxDrivers = Math.ceil(actualDrivers.length / limitDriver); //! REDONDEAR
 
     const dispatch = useDispatch();
 
@@ -84,7 +87,10 @@ function Home() {
             <button onClick={orderByBirthDateDescending} className={style.button}>DSC</button>
 
             <button onClick={resetFilters} className={style.button}>Reset filters</button>
-            <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice(0,9) : actualDrivers}/>
+            
+            {actualDrivers.length>16 && <Pagination numPage={numPage} setNumPage={setNumPage} maxDrivers={maxDrivers}/>}
+
+            <Cards drivers={actualDrivers.length>16 ? actualDrivers.slice((numPage - 1) * limitDriver,(numPage - 1) * limitDriver + limitDriver) : actualDrivers}/>
         </div>
     )
 }
