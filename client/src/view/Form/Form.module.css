@@ -9,3 +9,14 @@
     padding: 35px;
 }
 
+.container__btn{
+    color: blueviolet;
+}
+
+.container__btn_active{
+    background-color: red;
+}
+
+.container__btn_inactive{
+    background-color: rgb(0, 0, 0);
+}

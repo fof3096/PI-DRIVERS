@@ -20,26 +20,31 @@ function Form() {
         image: "",
         nationality: "",
         birthDate: "",
-        teams: []
+        teams: [],
+        band: ""
     })
     
-    const [error, setError] = useState({})
+    const [error, setError] = useState({
+        forename: "",
+        surname: "",
+        nationality: "",
+    })
 
-    function validation(input) {
+    function validation(values) {
         let errors = {};
-        if (!input.forename) {
+        if (!values.forename) {
             errors.forename = "Este campo es Obligatorios";
         }
-        if (!input.surname) {
+        if (!values.surname) {
             errors.surname = "Este campo es Obligatorios";
         }
-        if (!input.nationality) {
+        if (!values.nationality) {
             errors.nationality = "Este campo es Obligatorios";
         }
-        if (!input.birthDate) {
+        if (!values.birthDate) {
             errors.birthDate = "Este campo es Obligatorios";
         }
-        if (!input.teams[0]) {
+        if (values.teams.length == 0) {
             errors.teams = "Este campo es Obligatorios";
         }
         return errors;
@@ -49,6 +54,17 @@ function Form() {
         event.preventDefault();
     }
 
+    function handlerTeams(event) {
+        let team = event.target.value;
+        if(input.teams.includes(team)){
+            setInput({...input, teams:input.teams.filter(t => t !== team)})
+            setError(validation({...input, teams:input.teams.filter(t => t !== team)}));
+        }else{
+            setInput({...input, teams: [...input.teams, team]})
+            setError(validation({...input, teams: [...input.teams, team]}));
+        }
+    }
+    
     function handlerChange(event){
         setInput({
             ...input,
@@ -59,15 +75,6 @@ function Form() {
             ...input,
             [event.target.name]: event.target.value
         }))
-    }
-
-    function handlerTeams(event) {
-        let team = event.target.value;
-        if(input.teams.includes(team)){
-            setInput({...input, teams:input.teams.filter(t => t !== team)})
-        }else{
-            setInput({...input, teams: [...input.teams, team]})
-        }
     }
 
     function handlerCreate() {
@@ -110,9 +117,11 @@ function Form() {
                         allTeams.map((team, i)=> <li key={i} ><button onClick={handlerTeams} value={team}>{team}</button></li>)
                     }
                 </ul>
-                {Object.key(error) == 0 && <button onClick={handlerCreate} type="submit">Enviar</button>}
+                <button 
+                onClick={Object.keys(error).length === 0 ? handlerCreate : null} 
+                className={Object.keys(error).length === 0 ? style.container__btn_active : style.container__btn_inactive} 
+                type="submit">Enviar</button>
             </form>
-
         </div>
     )
 }
