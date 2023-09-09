@@ -8,6 +8,8 @@ import {
     ORDER_BY_NAME_DSC,
     ORDER_BY_BIRTHDATE_ASC,
     ORDER_BY_BIRTHDATE_DSC,
+    ORDER_BY_ORIGIN_DB,
+    ORDER_BY_ORIGIN_API,
     DELETE_FILTERS
 } from "./actions";
 
@@ -74,6 +76,18 @@ const rootReducer = (state = initialState, action) => {
             };
             
         case ORDER_BY_BIRTHDATE_DSC:
+            return {
+                ...state,
+                actualDrivers: action.payload
+            };
+        
+        case ORDER_BY_ORIGIN_DB:
+            return {
+                ...state,
+                actualDrivers: action.payload
+            };
+        
+        case ORDER_BY_ORIGIN_API:
             return {
                 ...state,
                 actualDrivers: action.payload

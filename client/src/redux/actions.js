@@ -7,6 +7,8 @@ export const ORDER_BY_NAME_ASC = "ORDER_BY_NAME_ASC";
 export const ORDER_BY_NAME_DSC = "ORDER_BY_NAME_DSC";
 export const ORDER_BY_BIRTHDATE_ASC = "ORDER_BY_BIRTHDATE_ASC";
 export const ORDER_BY_BIRTHDATE_DSC = "ORDER_BY_BIRTHDATE_DSC";
+export const ORDER_BY_ORIGIN_DB = "ORDER_BY_ORIGIN_DB";
+export const ORDER_BY_ORIGIN_API = "ORDER_BY_ORIGIN_API";
 export const DELETE_FILTERS = "DELETE_FILTERS";
 
 // LIBRERÍAS
@@ -106,6 +108,24 @@ export const orderByBirthDateDsc = (drivers) => {
         payload: result
     }
 }
+
+export const orderByOriginDB = (drivers) => {
+    const result = drivers.filter((driver) => String(driver.id).length > 5);
+    return{
+        type: ORDER_BY_ORIGIN_DB,
+        payload: result
+    }
+}
+
+export const orderByOriginAPI = (drivers) => {
+    const result = drivers.filter((driver) => String(driver.id).length < 5);
+    return{
+        type: ORDER_BY_ORIGIN_API,
+        payload: result
+    }
+}
+
+
 
 export const deleteFilters = () => {
     return{

@@ -38,6 +38,9 @@ function Form() {
         if (!values.surname) {
             errors.surname = "Este campo es Obligatorios";
         }
+        if (!values.description) {
+            errors.description = "Este campo es Obligatorios";
+        }
         if (!values.nationality) {
             errors.nationality = "Este campo es Obligatorios";
         }
@@ -95,6 +98,7 @@ function Form() {
                 
                 <label htmlFor="description">Description</label>
                 <textarea onChange={handlerChange} id="description" name="description" value={input.description}/>
+                {error.description && <p>{error.description}</p>}
                 
                 <label htmlFor="image">Image</label>
                 <input onChange={handlerChange} type="text" id="image" name="image" value={input.image}/>

@@ -14,6 +14,8 @@ import {
     orderByNameDsc,
     orderByBirthDateAsc,
     orderByBirthDateDsc,
+    orderByOriginDB,
+    orderByOriginAPI,
     deleteFilters
 } from "../../redux/actions";
 
@@ -42,8 +44,10 @@ function Home() {
 
     useEffect(()=>{
         //Carga a "allDrivers" y "actualDrivers"
-        dispatch(getDrivers());
-        dispatch(getTeams());
+        if (actualDrivers.length < 1) {
+            dispatch(getDrivers());
+            dispatch(getTeams());
+        }
 
         return ()=> dispatch(getDrivers());
     },[])
@@ -79,6 +83,16 @@ function Home() {
         dispatch(orderByBirthDateDsc(actualDrivers))
     }
 
+    function orderByOriginDataBase() {
+        setNumPage(1);
+        dispatch(orderByOriginDB(driversCopy))
+    }
+    
+    function orderByOriginApi() {
+        setNumPage(1);
+        dispatch(orderByOriginAPI(driversCopy))
+    }
+
     function resetFilters() {
         setNumPage(1);
         dispatch(deleteFilters());
@@ -107,6 +121,10 @@ function Home() {
             <span>Birth Date: </span>
             <button onClick={orderByBirthDateAscending} className={style.button}>Reciente</button>
             <button onClick={orderByBirthDateDescending} className={style.button}>Antiguo</button>
+            
+            <span>Origin: </span>
+            <button onClick={orderByOriginDataBase} className={style.button}>Data Base</button>
+            <button onClick={orderByOriginApi} className={style.button}>API</button>
 
             <button onClick={resetFilters} className={style.button}>Reset filters</button>
             
