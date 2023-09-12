@@ -1,17 +1,28 @@
 .container{
-    /* background-color: rebeccapurple; */
-    width: 150px;
-    margin-top: 25%;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #00000094;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(56, 55, 55, 0.596),rgba(8, 8, 8, 0.534)), url(../../assets/jonathan-cosens-photography--at83Qidy7g-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttom{ /* inline */
-    display: block;
-    background-color: rgb(255, 0, 0);
-    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-decoration: none;
-    text-align: center;
-    padding: 20px 0px;
-    border-radius: 15px;
+    font-weight: bolder;
+    font-size: large;
+    background-color: rgb(255, 255, 255);
+    border-style: solid;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
+    padding: 20px 45px;
+}
+
+.buttom:hover{
+    color: red;
+    box-shadow: 0 0 100px 10px;
 }

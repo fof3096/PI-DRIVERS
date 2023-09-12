@@ -1,5 +1,3 @@
-// ESTILOS
-import './App.css'
 // COMPONENTES
 import Landing from './view/Landing/Landing'
 import Home from './view/Home/Home'

@@ -8,7 +8,7 @@ function Landing() {
     
     return (
         <div className={style.container}>
-            <Link className={style.buttom} to="/home">Home</Link>
+            <Link className={style.buttom} to="/home">HOME</Link>
         </div>
     )
 }
