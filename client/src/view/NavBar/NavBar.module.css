@@ -1,16 +1,33 @@
 .container{
-    background-color: brown;
-    padding: 20px;
+    background-color: rgb(0, 0, 0);
+    padding: 30px 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: sticky; /* TODO */
 }
 
-.container__containerButtons{
-    display: inline;
+.container__img{
+    background-image: url(../../assets/F1.svg);
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 30px;
+}
+
+.containerButtons{
+    display: flex;
 }
 
 .containerButtons__button{
     background-color: rgb(255, 255, 255);
     border-style: solid;
+    border-width: 3px;
+    border-radius: 6px;
     border-color: red;
+    font-size: large;
+    font-weight: bold;
+    padding: 8px 18px;
+    margin: 0 15px;
 }
 
 .containerButtons__link{

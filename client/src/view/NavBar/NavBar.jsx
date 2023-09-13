@@ -5,7 +5,9 @@ import style from "./NavBar.module.css";
 function NavBar() {
     return (
         <div className={style.container}>
-            <div className={style.container__containerButtons}>
+            <div className={style.container__img}></div>
+            
+            <div className={style.containerButtons}>
                 <button className={style.containerButtons__button} >
                     <Link className={style.containerButtons__link} to={"/"}>Inicio</Link>
                 </button>
