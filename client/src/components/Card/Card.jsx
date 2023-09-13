@@ -15,7 +15,7 @@ function Card(props) {
     <div className={style.container}>
         <span>{forename} {surname}</span>
         <div >
-            <img className={style.image} src={image} alt={`corredor ${id}`}/>
+            <img className={style.image} src={image ? image:"https://wallpapercave.com/wp/wp8757558.png"} alt={`corredor ${id}`}/>
         </div>
         <span>Teams</span>
         <ul className={style.container__teams}>
