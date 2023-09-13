@@ -1,13 +1,41 @@
+.container{
+    width: 400px;
+    font-size: large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+    margin: 20px 10px;
+}
+
 .searchbar{
-    background-color: rgb(255, 255, 255);
-    border-style: none;
-    border-radius: 5px;
-    padding: 5px;
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 0 2px;
+}
+
+.searchbar::placeholder{
+    color: rgb(141, 141, 141);
+}
+
+.searchbar:focus{
+    outline: none;
+    border-color: rgba(255, 0, 0, 0.753);
 }
 
 .buttom{
     background-color: royalblue;
     color: aliceblue;
-    padding: 5px 10px;
-    border-style: solid;
+    padding: 8px 10px;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

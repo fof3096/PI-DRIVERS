@@ -101,36 +101,51 @@ function Home() {
 
     return (
         <div >
-            <SearchBar setNumPage={setNumPage} setSelectedOption={setSelectedOption}/>
-            <select  onChange={(event) => {
-                setSelectedOption(event.target.value);
-                handlerTeam(event);
-            }} value={selectedOption} className={style.select} >
-            <option value="None">None</option>
-            {
-                allTeams.map((team, i)=>{
-                return (
-                    <option className={style.select__option} value={team} id={i} key={i} >{team}</option>)
-                }) 
-            }
-            </select>
-            <span>Name: </span>
-            <button onClick={orderByNameAscending} className={style.button}>ASC</button>
-            <button onClick={orderByNameDescending} className={style.button}>DSC</button>
-            
-            <span>Birth Date: </span>
-            <button onClick={orderByBirthDateAscending} className={style.button}>Reciente</button>
-            <button onClick={orderByBirthDateDescending} className={style.button}>Antiguo</button>
-            
-            <span>Origin: </span>
-            <button onClick={orderByOriginDataBase} className={style.button}>Data Base</button>
-            <button onClick={orderByOriginApi} className={style.button}>API</button>
+            <div className={style.barContainer}>
+                <SearchBar setNumPage={setNumPage} setSelectedOption={setSelectedOption}/>
 
-            <button onClick={resetFilters} className={style.button}>Reset filters</button>
-            
+                <div className={style.filtersContainer}>
+                    <div className={style.filterContainer__filter}>
+                        <span>Team</span>
+                        <select onChange={(event) => {
+                            setSelectedOption(event.target.value);
+                            handlerTeam(event);
+                        }} value={selectedOption} className={style.select} >
+                        <option className={style.select__option} value="None">None</option>
+                        {
+                            allTeams.map((team, i)=>{
+                            return (
+                                <option className={style.select__option} value={team} id={i} key={i} >{team}</option>)
+                            }) 
+                        }
+                        </select>
+                    </div>
+
+                    <div className={style.filterContainer__filter}>
+                        <span>Name</span>
+                        <button onClick={orderByNameAscending} className={style.button}>ASC</button>
+                        <button onClick={orderByNameDescending} className={style.button}>DSC</button>
+                    </div>
+                    
+                    <div className={style.filterContainer__filter}>
+                        <span>Birth Date</span>
+                        <button onClick={orderByBirthDateAscending} className={style.button}>New</button>
+                        <button onClick={orderByBirthDateDescending} className={style.button}>Old</button>
+                    </div>
+                    
+                    <div className={style.filterContainer__filter}>
+                        <span>Origin</span>
+                        <button onClick={orderByOriginDataBase} className={style.button}>Data Base</button>
+                        <button onClick={orderByOriginApi} className={style.button}>API</button>
+                    </div>
+
+                    <button onClick={resetFilters} className={style.button}>Reset filters</button>
+                </div>
+            </div>
+    
             <Pagination numPage={numPage} setNumPage={setNumPage} maxDrivers={maxDrivers}/>
                 
-            <div >
+            <div className={style.cardsContainer}>
                 <Cards drivers={actualDrivers.slice((numPage - 1) * limitDriver,(numPage - 1) * limitDriver + limitDriver)}/>
             </div>
         </div>

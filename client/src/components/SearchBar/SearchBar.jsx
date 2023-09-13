@@ -29,11 +29,13 @@ function SearchBar(props) {
     }
 
     return (
-    <>
-        <label htmlFor="search" >Search:</label>
-        <input className={style.searchbar} onChange={handleChange} type="text" id="search" value={searchBar} placeholder="Name or Surname"/>
-        <button className={style.buttom} onClick={viewAllDrivers}>Clean</button>
-    </>
+    <div className={style.container}>
+        <div>
+            <label htmlFor="search" >Search</label>
+            <input className={style.searchbar} onChange={handleChange} type="text" id="search" value={searchBar} placeholder="Name or Surname"/>
+        </div>
+        <button className={style.buttom} onClick={viewAllDrivers ? viewAllDrivers : null}>CLEAN</button>
+    </div>
     )
 }
 
