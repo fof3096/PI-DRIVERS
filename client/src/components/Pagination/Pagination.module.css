@@ -1,8 +1,40 @@
 .container{
-    border: solid rebeccapurple;
+    border: solid rgba(0, 0, 0, 0.795);
+    background-color: rgb(255, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container input{
+    margin-left: 5px;
+    width: 3em;
+    height: 30px;
+    border-style: none;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container p{
+    margin: 0 10px;
+    font-size: 18px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container button{
+    height: 30px;
+    border-style: none;
+    border-radius: 3px;
+    padding: 5px 10px;
 }
 
 .container button[disabled]{
-    background-color: aqua;
+    /* background-color: rgba(0, 0, 0, 0.295); */
+    background-color: rgb(255, 255, 255);
+    color: rgba(0, 0, 0, 0.342);
     cursor: no-drop;
 }

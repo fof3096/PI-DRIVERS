@@ -3,7 +3,6 @@ import style from "./Pagination.module.css";
 
 function Pagination(props) {
     const {  numPage, setNumPage, maxDrivers } = props;
-    // ! APUNTO DE PROBAR ALGO
 
     const [input, setInput] = useState(1);
 
@@ -42,7 +41,7 @@ function Pagination(props) {
         <div className={style.container} >
             <button disabled={numPage === 1 || numPage < 1} onClick={previousPage}>◀</button>
             <input onChange={handlerChange} onKeyDown={handlerKeyDown} type="text" id="pageBar" value={input}/>
-            <p>de {maxDrivers}</p>
+            <p>OF {maxDrivers}</p>
             <button disabled={numPage === maxDrivers || numPage > maxDrivers} onClick={nextPage}>▶</button>
         </div>
     )
