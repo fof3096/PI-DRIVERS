@@ -100,7 +100,7 @@ function Home() {
     }
 
     return (
-        <div>
+        <div >
             <SearchBar setNumPage={setNumPage} setSelectedOption={setSelectedOption}/>
             <select  onChange={(event) => {
                 setSelectedOption(event.target.value);
@@ -129,8 +129,10 @@ function Home() {
             <button onClick={resetFilters} className={style.button}>Reset filters</button>
             
             <Pagination numPage={numPage} setNumPage={setNumPage} maxDrivers={maxDrivers}/>
-
-            <Cards drivers={actualDrivers.slice((numPage - 1) * limitDriver,(numPage - 1) * limitDriver + limitDriver)}/>
+                
+            <div >
+                <Cards drivers={actualDrivers.slice((numPage - 1) * limitDriver,(numPage - 1) * limitDriver + limitDriver)}/>
+            </div>
         </div>
     )
 }

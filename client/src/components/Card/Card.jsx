@@ -13,9 +13,11 @@ function Card(props) {
 
     return (
     <div className={style.container}>
-        <h3>{forename} {surname}</h3>
-        <img className={style.container__img} src={image} alt={`corredor ${id}`} height="200px" />
-        Teams
+        <span>{forename} {surname}</span>
+        <div >
+            <img className={style.image} src={image} alt={`corredor ${id}`}/>
+        </div>
+        <span>Teams</span>
         <ul className={style.container__teams}>
         {
         teams.map((team, index) => {
@@ -23,7 +25,7 @@ function Card(props) {
         })
         }
         </ul>
-        <button className={style.container__button}><Link className={style.container__button__link} to={`/detail/${id}`}>Conocer más</Link></button>
+        <button className={style.container__button}><Link className={style.container__button__link} to={`/detail/${id}`}>More info</Link></button>
     </div>
     )
 }
