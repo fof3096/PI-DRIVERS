@@ -3,7 +3,8 @@ function prepareString(string) {
 }
 
 function teamsToArray(teamsDriver) {
-    return teamsDriver.split(",").map(team => team.trim());
+    let antiCopy = new Set(teamsDriver.split(",").map(team => team.trim()));
+    return [...antiCopy];
 }
 
 module.exports = {

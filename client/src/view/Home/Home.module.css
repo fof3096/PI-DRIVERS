@@ -45,6 +45,11 @@
     font-weight: bold;
 }
 
+.filterContainer__filter button:hover{
+    background-color: rgb(219, 17, 17);
+    color: white;
+}
+
 .filterContainer__filter select{
     margin: 0 3px;
     padding: 5px 8px;

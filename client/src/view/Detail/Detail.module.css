@@ -1,0 +1,111 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container__card{
+    margin: 5vh 0;
+    padding: 30px;
+    width: 55%;
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.containerDriver{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.containerDriver__img{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.personalInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 200px;
+    width: 500px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 35px;
+    margin: 25px 30px;
+}
+
+.personalInfo span{
+    margin: 0 5px;
+    color: black;
+}
+
+.data{
+    margin: 15px;
+    display: flex;
+    align-items: baseline;
+}
+
+.id{
+    color: black;
+    font-family: monospace;
+    font-size: 200px;
+}
+
+.otherInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.otherInfo p{
+    width: 500px;
+    max-height: 190px;
+    padding: 10px;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.teams{
+    text-align: center;
+    width: 300px;
+    max-height: 190px;
+    -height: 190px;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 10px;
+}
+
+.teams span{
+    font-size: 25px;
+    font-weight: bold;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.teams ul{
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams li{
+    list-style-type: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border-style: solid;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: sans-serif;
+}

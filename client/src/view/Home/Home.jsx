@@ -105,6 +105,7 @@ function Home() {
                 <SearchBar setNumPage={setNumPage} setSelectedOption={setSelectedOption}/>
 
                 <div className={style.filtersContainer}>
+
                     <div className={style.filterContainer__filter}>
                         <span>Team</span>
                         <select onChange={(event) => {
