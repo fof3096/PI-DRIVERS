@@ -4,7 +4,8 @@ const {
     getByQueryDrivers,
     getAllDrivers,
     getByIdDriver,
-    postDrivers
+    postDrivers,
+    deleteDrivers
 } = require("../handlers/driversHandlers")
 
 // GET 15 DRIVERS
@@ -17,7 +18,10 @@ driversRoutes.get("/", getAllDrivers)
 driversRoutes.get("/:idDriver", getByIdDriver)
 
 // POST DRIVER
-// TODO: Transformar el FORENAME y SURNAME  para que comiencen con MAYUSCULAS o usar validaciones por FORM
 driversRoutes.post("/", postDrivers)
+
+// POST DRIVER
+driversRoutes.delete("/", deleteDrivers)
+
 
 module.exports = driversRoutes;
